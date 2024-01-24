@@ -65,7 +65,8 @@ const gameBoard = (() => {
             return null;
         }        
     }
-    return {getWinner, placePiece};
+    let reset_board = () => board = [["","",""],["","",""],["","",""]];
+    return {getWinner, placePiece, reset_board};
 })();
 
 function createPlayer(playerName, playerPiece) {
@@ -87,7 +88,6 @@ const gameInstance = (() => {
             if(isGameOver) {
                 return;
             }
-
             let piece = turn == 1 ? "X" : "O";
             let cell = document.querySelector("#cell" + (i+1));
             let isValidMove = gameBoard.placePiece(piece, cell);
@@ -102,9 +102,19 @@ const gameInstance = (() => {
         })
     }
 
+    let reset_board = () => {
+        isGameOver = false;
+        winner = null;
+        turn = 1;
+        gameBoard.reset_board();
+        for(let cell of board_cells) {
+            cell.replaceChildren();
+        }
+    }
+
     let createPlayer1 = name => player1 = createPlayer(name, "X");
     let createPlayer2 = name => player2 = createPlayer(name, "O");
-    return {createPlayer1, createPlayer2, turn}
+    return {createPlayer1, createPlayer2, reset_board}
 })()
 
 let form_submit_btn = document.querySelector(".form-submit-btn");
@@ -121,3 +131,6 @@ form_submit_btn.addEventListener("click", e => {
     gameInstance.createPlayer1(player1_name);
     gameInstance.createPlayer2(player2_name);
 })
+
+let reset_btn = document.querySelector(".reset-button");
+reset_btn.addEventListener("click", gameInstance.reset_board);
