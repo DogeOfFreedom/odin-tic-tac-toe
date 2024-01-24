@@ -8,6 +8,58 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    
+    <div class="main-content-container hide">
+        <h1 class="page-title">TIC TAC TOE</h1>
+        <div class="game-container">
+            <div class="board">
+                <div id="cell1" class="cell"></div>
+                <div class="grid-line grid-line-top"></div>
+                <div id="cell2" class="cell"></div>
+                <div class="grid-line grid-line-top"></div>
+                <div id="cell3" class="cell"></div>
+                <div class="grid-line grid-line-left"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line grid-line-right"></div>
+                <div id="cell4" class="cell"></div>
+                <div class="grid-line"></div>
+                <div id="cell5" class="cell"></div>
+                <div class="grid-line"></div>
+                <div id="cell6" class="cell"></div>
+                <div class="grid-line grid-line-left"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line grid-line-right"></div>
+                <div id="cell7" class="cell"></div>
+                <div class="grid-line grid-line-bottom"></div>
+                <div id="cell8" class="cell"></div>
+                <div class="grid-line grid-line-bottom"></div>
+                <div id="cell9" class="cell"></div>
+            </div>
+        </div>
+        <div class="reset-button-container">
+            <button class="reset-button">
+                <img src="icons/reset.png" alt="">
+            </button>
+        </div>
+    </div>
+    <div class="player-form-container">
+        <h2>Enter Player Names</h2>
+        <form action="">
+            <div>
+                <label for="player1-name">Player 1 Name</label>
+                <input name="player1-name" type="text" required>
+            </div>
+            <div>
+                <label for="player2-name">Player 2 Name</label>
+                <input name="player2-name" type="text" required>
+            </div>
+            <div class="submit-btn-container">
+                <button class="form-submit-btn" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

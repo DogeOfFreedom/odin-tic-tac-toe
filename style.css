@@ -1,0 +1,182 @@
+
+@font-face {
+    font-family: lemonmilk;
+    src: url("fonts/LEMONMILK-Regular.otf");
+}
+:root {
+    --yellow: #ffb703;
+    --light-blue: #8ecae6;
+    --blue: #219ebc;
+    --dark-blue: #023047;
+    --orange: #fb8500;
+    --box-shadow: #757575;
+    --cell-hover: #aaaaaa;
+
+    --game-container-height: 50vh;
+
+    --grid-cell: 10fr;
+    --grid-line: 1fr;
+    --grid-radius: 20px;
+    --player-piece: 100px;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    background-color: var(--yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: lemonmilk;
+}
+
+h1 {
+    text-align: center;
+}
+
+.game-container {
+    height: var(--game-container-height);
+    width: var(--game-container-height);
+    background-color: white;
+    box-shadow: 0px 3px 10px var(--box-shadow);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: var(--grid-cell) var(--grid-line) var(--grid-cell) var(--grid-line) var(--grid-cell);
+    grid-template-rows: var(--grid-cell) var(--grid-line) var(--grid-cell) var(--grid-line) var(--grid-cell);
+    height: 100%;
+}
+
+.grid-line {
+    background-color: var(--dark-blue);
+}
+
+.grid-line-top {
+    border-radius: var(--grid-radius) var(--grid-radius) 0px 0px;
+}
+
+.grid-line-left {
+    border-radius: var(--grid-radius) 0px 0px var(--grid-radius);
+}
+
+.grid-line-right {
+    border-radius: 0px var(--grid-radius) var(--grid-radius) 0px;
+}   
+
+.grid-line-bottom {
+    border-radius: 0px 0px var(--grid-radius) var(--grid-radius);
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+        height: var(--player-piece);
+        width: auto;
+    }
+}
+
+.reset-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.reset-button {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    height: 100px;
+    width: 100px;
+    border: 0px;
+    box-shadow: 0px 3px 10px var(--box-shadow);
+}
+
+.reset-button:hover {
+    & img {
+        filter: brightness(0) invert(1);
+    }
+}
+
+.player-form-container {
+    height: 30vh;
+    width: 700px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 3px 10px #a9a9a9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & h2 {
+        flex: auto;
+        margin: 0px;
+        text-align: center;
+        padding-top: 25px;
+        font-size: 28px;
+    }
+}
+
+form {
+    padding: 0px 50px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    gap: 25px;
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    & label {
+        font-weight: bold;
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+}
+
+input {
+    height: 35px;
+    font-size: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+input:invalid {
+    border: 2px solid red;
+}
+
+button {
+    height: 50px;
+    width: 150px;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: lemonmilk;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+.hide {
+    display: none;
+}
