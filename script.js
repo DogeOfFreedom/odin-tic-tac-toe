@@ -69,18 +69,38 @@ const gameBoard = (() => {
     return {getWinner, placePiece, reset_board};
 })();
 
-function createPlayer(playerName, playerPiece) {
-    let name = playerName;
+function createPlayer(playerPiece) {
+    let name;
     let piece = playerPiece;
     return {name, piece}
 }
 
+let playerManager = (() => {
+    let player1 = createPlayer("X");
+    let player2 = createPlayer("O");
+    let turn_indicator = document.querySelector(".turn-indicator-text");
+
+    let set_first_turn_text = () => {
+        turn_indicator.textContent = `It is ${player1.name}'s turn`;
+    }
+
+    let change_turn_text = (turn) => {
+        turn_indicator.textContent = turn == 1 ? `It is ${player1.name}'s turn` : `It is ${player2.name}'s turn`;
+    }
+
+    let set_winner_text = piece => {
+        let winner = player1.piece == piece ? player1.name : player2.name;
+        turn_indicator.textContent = `${winner} WINS!`
+    }
+
+    return {player1, player2, set_first_turn_text, change_turn_text, set_winner_text}
+})();
+
 const gameInstance = (() => {
-    let player1;
-    let player2;
     let isGameOver = false;
     let winner = null;
     let turn = 1;
+    let turn_counter = 0;
     
     let board_cells = document.querySelectorAll(".cell");
     for(let i=0; i < board_cells.length; i++) {
@@ -88,15 +108,18 @@ const gameInstance = (() => {
             if(isGameOver) {
                 return;
             }
-            let piece = turn == 1 ? "X" : "O";
+            let piece = turn == 1 ? playerManager.player1.piece : playerManager.player2.piece;
             let cell = document.querySelector("#cell" + (i+1));
             let isValidMove = gameBoard.placePiece(piece, cell);
             if(isValidMove) {
+                turn_counter++;
                 turn *= -1;
+                playerManager.change_turn_text(turn);
                 winner = gameBoard.getWinner();
                 if(winner !== null) {
                     console.log("GAME OVER");
                     isGameOver = true;
+                    playerManager.set_winner_text(winner);
                 }
             }            
         })
@@ -107,29 +130,29 @@ const gameInstance = (() => {
         winner = null;
         turn = 1;
         gameBoard.reset_board();
+        playerManager.set_first_turn_text();
         for(let cell of board_cells) {
             cell.replaceChildren();
         }
     }
-
-    let createPlayer1 = name => player1 = createPlayer(name, "X");
-    let createPlayer2 = name => player2 = createPlayer(name, "O");
-    return {createPlayer1, createPlayer2, reset_board}
+    return {reset_board}
 })()
 
 let form_submit_btn = document.querySelector(".form-submit-btn");
 form_submit_btn.addEventListener("click", e => {
     e.preventDefault();
-
-    let main_content_container = document.querySelector(".main-content-container");
-    main_content_container.classList.remove("hide");
-    let player_form_container = document.querySelector(".player-form-container");
-    player_form_container.classList.add("hide");
-
     let player1_name = document.querySelector("input[name='player1-name']").value;
     let player2_name = document.querySelector("input[name='player2-name']").value;
-    gameInstance.createPlayer1(player1_name);
-    gameInstance.createPlayer2(player2_name);
+
+    if(player1_name !== "" && player2_name !== "") {
+        let main_content_container = document.querySelector(".main-content-container");
+        main_content_container.classList.remove("hide");
+        let player_form_container = document.querySelector(".player-form-container");
+        player_form_container.classList.add("hide");
+        playerManager.player1.name = player1_name;
+        playerManager.player2.name = player2_name;
+        playerManager.set_first_turn_text();
+    }
 })
 
 let reset_btn = document.querySelector(".reset-button");
